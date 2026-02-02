@@ -1,0 +1,76 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <h2 class="text-center">{{myapp_title}}</h2>
+    </div>
+    <div class="row m-3">
+        {% if page_object %} 
+            {% for post in page_object %}
+            <div class="col-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img style="height: 150px; width: 200px;border-radius: 5%;" src="{{ post.img_url}}" class="img-fluid" alt="..."/>
+                        </div>
+                        <div class="col-md-8">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.content|truncatechars:60 }}</p>
+                            <div class="d-flex justify-content-between">
+                                {% comment %} <a href="detail/{{ post.id }}">Read More</a> {% endcomment %}
+                                <a class="text-decoration-none" href="{% url "myapp:Detail" slug=post.slug %}">Read More</a>
+                                <a class="text-decoration-none text-dark fw-bold" href="#">{{ post.category }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            {% endfor %}
+            <div class="col-12">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        {% if page_object.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_object.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        
+                        {% for num in page_object.paginator.page_range %}
+                            {% if page_object.number == num %}
+                                <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if page_object.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_object.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+        {% else %}
+            <p> post not available </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

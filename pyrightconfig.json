@@ -1,0 +1,7 @@
+{
+    "pythonVersion": "3.7",
+    "pythonPath": "./myvenv/Scripts/python.exe",
+    "typeCheckingMode": "basic",
+    "venvPath": ".",
+    "venv": "myvenv"
+}

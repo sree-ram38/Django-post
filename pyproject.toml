@@ -1,0 +1,8 @@
+[tool.pylance]
+pythonPath = "./myvenv/Scripts/python.exe"
+
+[tool.pyright]
+pythonVersion = "3.7"
+pythonPath = "./myvenv/Scripts/python.exe"
+venvPath = "."
+venv = "myvenv"
